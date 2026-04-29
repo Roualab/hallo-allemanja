@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --sand: #F5EFE0;
+    --sand-dark: #E8DBBF;
+    --terracotta: #C96A3E;
+    --terracotta-light: #E8896A;
+    --forest: #3A5E45;
+    --forest-light: #557A62;
+    --cream: #FAF7F0;
+    --text-dark: #2C2318;
+    --text-mid: #5C4D3A;
+    --text-light: #8A7A68;
+  }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  nav {
+    background: var(--cream);
+    border-bottom: 1px solid var(--sand-dark);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    font-family: 'Lora', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--forest);
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--terracotta); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-mid);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--terracotta); }
+  .btn {
+    background: var(--terracotta);
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn:hover { background: var(--terracotta-light); }
+  .btn-outline {
+    background: transparent;
+    color: var(--terracotta);
+    border: 1.5px solid var(--terracotta);
+    padding: 0.6rem 1.4rem;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { background: var(--terracotta); color: #fff; }
+
+  /* Hero */
+  .hero {
+    background: var(--sand);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: var(--sand-dark);
+    opacity: 0.5;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: var(--sand-dark);
+    opacity: 0.4;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--forest);
+    color: #fff;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    border-radius: 50px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+  .hero h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 em { color: var(--terracotta); font-style: italic; }
+  .hero p {
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+  .hero-flags {
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    position: relative;
+    z-index: 1;
+  }
+  .flag { font-size: 1.5rem; }
+
+  /* Stats */
+  .stats {
+    background: var(--forest);
+    padding: 2.5rem 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; color: #fff; }
+  .stat-num { font-family: 'Lora', serif; font-size: 2rem; font-weight: 600; }
+  .stat-label { font-size: 0.8rem; opacity: 0.7; margin-top: 0.25rem; letter-spacing: 0.5px; }
+
+  /* Services */
+  section { padding: 4rem 2rem; max-width: 960px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+  h2 {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.75rem;
+    line-height: 1.25;
+  }
+  .section-sub {
+    color: var(--text-mid);
+    font-size: 1rem;
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
+  }
+  .service-card {
+    background: #fff;
+    border: 1px solid var(--sand-dark);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(44,35,24,0.08); }
+  .service-icon {
+    width: 44px; height: 44px;
+    background: var(--sand);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+  .service-card h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--text-dark); }
+  .service-card p { font-size: 0.875rem; color: var(--text-light); line-height: 1.6; }
+
+  /* Who */
+  .who-section { background: var(--sand); padding: 4rem 2rem; }
+  .who-inner { max-width: 960px; margin: 0 auto; }
+  .who-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .who-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    border: 1px solid var(--sand-dark);
+  }
+  .who-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+  .who-card h4 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.25rem; }
+  .who-card p { font-size: 0.85rem; color: var(--text-light); }
+
+  /* Process */
+  .steps { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+  .step { display: flex; gap: 1.5rem; align-items: flex-start; }
+  .step-num {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    color: #fff;
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-body h4 { font-size: 1rem; font-weight: 500; margin-bottom: 0.25rem; }
+  .step-body p { font-size: 0.875rem; color: var(--text-light); }
+
+  /* CTA */
+  .cta-section {
+    background: var(--forest);
+    padding: 4rem 2rem;
+    text-align: center;
+    color: #fff;
+  }
+  .cta-section h2 { color: #fff; margin-bottom: 1rem; }
+  .cta-section p { color: rgba(255,255,255,0.7); max-width: 480px; margin: 0 auto 2rem; }
+  .btn-light {
+    background: var(--sand);
+    color: var(--forest);
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-light:hover { background: #fff; }
+
+  footer {
+    background: var(--text-dark);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+  }
+  footer span { color: var(--terracotta); }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="logo">Hallo <span>Allemanja</span></div>
+  <ul class="nav-links">
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Who We Help</a></li>
+    <li><a href="#">How It Works</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a href="#" class="btn">Book a Call</a>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-tag">Your immigration partner for Germany</div>
+  <h1>Your new life in Germany<br/>starts <em>here.</em></h1>
+  <p>We guide individuals, families, and professionals through every step of immigrating to Germany — simply, clearly, and with a human touch.</p>
+  <div class="hero-btns">
+    <a href="#" class="btn">Get Started Free</a>
+    <a href="#" class="btn-outline">See Our Services</a>
+  </div>
+  <div class="hero-flags">
+    <span class="flag">🇩🇪</span>
+    <span>Germany immigration specialists</span>
+    <span style="margin: 0 0.5rem;">•</span>
+    <span>Based in Berlin</span>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Clients helped</div></div>
+  <div class="stat"><div class="stat-num">95%</div><div class="stat-label">Visa approval rate</div></div>
+  <div class="stat"><div class="stat-num">8+</div><div class="stat-label">Years of experience</div></div>
+  <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Countries served</div></div>
+</div>
+
+<!-- Services -->
+<section>
+  <div class="section-label">What we offer</div>
+  <h2>Services tailored to your journey</h2>
+  <p class="section-sub">Whether you're moving for work, love, or a fresh start — we have the right support for you.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🛂</div>
+      <h3>Visa Applications</h3>
+      <p>Job seeker, skilled worker, student, and family reunion visas — we handle the paperwork.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏠</div>
+      <h3>Residence Permits</h3>
+      <p>Temporary and permanent residence permit applications, renewals, and upgrades.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎓</div>
+      <h3>Qualification Recognition</h3>
+      <p>Help getting your foreign degrees and qualifications recognized in Germany.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🤝</div>
+      <h3>Family Reunification</h3>
+      <p>Bringing your family to join you in Germany, step by step.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🇩🇪</div>
+      <h3>Citizenship Support</h3>
+      <p>Naturalization advice and application assistance for permanent residents.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💼</div>
+      <h3>Business Immigration</h3>
+      <p>Freelance permits, company formation, and investor visas for entrepreneurs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Who -->
+<div class="who-section">
+  <div class="who-inner">
+    <div class="section-label">Who we help</div>
+    <h2>We're here for people like you</h2>
+    <p class="section-sub">No matter where you're coming from or why you're moving, we speak your language.</p>
+    <div class="who-grid">
+      <div class="who-card">
+        <div class="who-dot"></div>
+        <div>
+          <h4>Skilled workers & professionals</h4>
+          <p>Engineers, nurses, IT specialists moving to Germany on the Skilled Immigration Act.</p>
+        </div>
+      </div>
+      <div class="who-card">
+        <div class="who-dot"></div>
+        <div>
+          <h4>Students & graduates</h4>
+          <p>International students applying to study in Germany or stay after graduation.</p>
+        </div>
+      </div>
+      <div class="who-card">
+        <div class="who-dot"></div>
+        <div>
+          <h4>Families & partners</h4>
+          <p>Spouses and families joining a loved one already living in Germany.</p>
+        </div>
+      </div>
+      <div class="who-card">
+        <div class="who-dot"></div>
+        <div>
+          <h4>Freelancers & entrepreneurs</h4>
+          <p>Self-employed professionals and business owners launching in Germany.</p>
+        </div>
+      </div>
+      <div class="who-card">
+        <div class="who-dot"></div>
+        <div>
+          <h4>Job seekers</h4>
+          <p>Applicants using the German Job Seeker Visa to find employment on the ground.</p>
+        </div>
+      </div>
+      <div class="who-card">
+        <div class="who-dot"></div>
+        <div>
+          <h4>Long-term residents</h4>
+          <p>People ready to settle permanently or apply for German citizenship.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Process -->
+<section>
+  <div class="section-label">How it works</div>
+  <h2>Simple, clear, step-by-step</h2>
+  <p class="section-sub">We make the complex feel manageable — from your first question to your approval letter.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Free initial consultation</h4>
+        <p>We assess your situation, explain your options, and outline the best path for you — no obligation.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Document preparation</h4>
+        <p>We prepare a personalized checklist and guide you through gathering all required documents correctly.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Application submission</h4>
+        <p>We review everything, submit your application, and liaise with the authorities on your behalf.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>Arrival & beyond</h4>
+        <p>We support you even after approval — with registration, permits, and settling into life in Germany.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Ready to make the move?</h2>
+  <p>Book a free 30-minute consultation and let's figure out your path to Germany together.</p>
+  <button class="btn-light">Book Your Free Consultation</button>
+</div>
+
+<footer>
+  © 2026 <span>Hallo Allemanja</span> · Immigration consulting · Berlin, Germany
+</footer>
+
+</body>
+</html>
